@@ -2,14 +2,6 @@
 
  class Calculator{
 
-    // function calc($operator, $firstNumber = "null", $secNumber = "null"){
-    //     try{
-    //         return $this->checkIsNumeric($operator, $firstNumber, $secNumber);
-    //     } catch (ArgumentCountError $e){
-    //         echo "You must enter a string and two numbers. <br>";
-    //     }
-    // }
-
         function calc($operator, $firstNumber = "null", $secNumber = "null"){
 
         if(is_numeric($firstNumber) == true && is_numeric($secNumber) == true ){

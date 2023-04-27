@@ -49,7 +49,6 @@ class StickyForm extends Validation
         } else {
           if (isset($GlobalPost[$k])) {
             foreach ($elementsArr[$k]['value'] as $ek => $ev) {
-              //echo $GlobalPost[$k] . "  " . $ek;
               if ($GlobalPost[$k] === $ek) {
                 $elementsArr[$k]['value'][$ek] = "checked";
                 break;

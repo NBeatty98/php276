@@ -45,7 +45,7 @@ $elementsArr = [
     "errorMessage" => "<span style='color: red; margin-left: 15px;'>Name cannot be blank and must be a standard name</span>",
     "errorOutput" => "",
     "type" => "text",
-    "value" => "Waldo",
+    "value" => "Nick Beatty",
     "regex" => "name"
   ],
 
@@ -67,13 +67,13 @@ $elementsArr = [
 
   "state" => [
     "type" => "select",
-    "options" => ["mi" => "Michigan", "oh" => "Ohio", "ca" => "California", "or" => "Oregon", "wa" => "Washington"],
-    "selected" => "ca",
+    "options" => ["MI" => "Michigan", "OH" => "Ohio", "NY" => "New York", "IL" => "Illinois", "TN" => "Tennessee"],
+    "selected" => "MI",
     "regex" => "name"
   ],
 
   "phone" => [
-    "errorMessage" => "<span style='color: red; margin-left: 15px;'>Phone cannot be blank and must be a valid phone number</span>",
+    "errorMessage" => "<span style='color: red; margin-left: 15px;'>Phone cannot be blank and must be written as 999.999.9999</span>",
     "errorOutput" => "",
     "type" => "text",
     "value" => "999.999.9999",
@@ -84,7 +84,7 @@ $elementsArr = [
     "errorMessage" => "<span style='color: red; margin-left: 15px;'>Email cannot be blank and must be a valid email</span>",
     "errorOutput" => "",
     "type" => "text",
-    "value" => "test@email.com",
+    "value" => "nbeatty@test.com",
     "regex" => "email"
   ],
 
@@ -97,15 +97,15 @@ $elementsArr = [
   ],
 
   "contacts" => [
-    "errorMessage" => "<span style='color: red; margin-left: 15px;'>You must select at least one contacts option</span>",
-    "errorOutput" => "",
     "type" => "checkbox",
     "action" => "notRequired",
     "status" => ["newsletter" => "", "email_updates" => "", "text_updates" => ""]
   ],
 
   "age" => [
-    "action" => "Required",
+    "errorMessage" => "<span style='color: red; margin-left: 15px;'>You must select an age range</span>",
+    "errorOutput" => "",
+    "action" => "required",
     "type" => "radio",
     "value" => ["10-18" => "", "19-30" => "", "31-50" => "", "51+" => ""]
   ]
@@ -132,6 +132,8 @@ function addData($post)
     }
     /* REMOVE THE LAST COMMA FROM THE CONTACTS */
     $contacts = substr($contacts, 0, -1);
+  } else {
+    $contacts = "";
   }
 
   if (isset($_POST['age'])) {
@@ -177,7 +179,7 @@ function getForm($acknowledgement, $elementsArr)
     <form method="post" action="index.php?page=addContact">
  
     <div class="form-group">
-      <label for="name">Name{$elementsArr['name']['errorOutput']}</label>
+      <label for="name">Name (letters only) {$elementsArr['name']['errorOutput']}</label>
       <input type="text" class="form-control" id="name" name="name" value="{$elementsArr['name']['value']}" >
     </div>
     <div class="form-group">
@@ -195,7 +197,7 @@ function getForm($acknowledgement, $elementsArr)
       </select>
     </div>
     <div class="form-group">
-      <label for="phone">Phone (format 999.999.9999) {$elementsArr['phone']['errorOutput']}</label>
+      <label for="phone">Phone {$elementsArr['phone']['errorOutput']}</label>
       <input type="text" class="form-control" id="phone" name="phone" value="{$elementsArr['phone']['value']}" >
     </div>
     <div class="form-group">
@@ -207,7 +209,7 @@ function getForm($acknowledgement, $elementsArr)
       <input type="text" class="form-control" id="dob" name="dob" value="{$elementsArr['dob']['value']}" >
     </div>
       
-    <p><strong>Please check all contact types you would like (optional):</strong>{$elementsArr['contacts']['errorOutput']}</p>
+    <p><strong>Please check all contact types you would like (optional):</strong></p>
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" name="contacts[]" id="contacts1" value="newsletter" {$elementsArr['contacts']['status']['newsletter']}>
       <label class="form-check-label" for="contacts1">Newsletter</label>
@@ -221,21 +223,21 @@ function getForm($acknowledgement, $elementsArr)
       <label class="form-check-label" for="contacts3">Text Updates</label>
     </div>
         
-    <p><strong>Please select an age range (you must select one):</strong></p>
+    <p><strong>Please select an age range (you must select one):</strong>{$elementsArr['age']['errorOutput']}</p>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="age" id="age1" value="10-18"  {$elementsArr['age']['value']['10-18']}>
+      <input class="form-check-input" type="radio" name="age" id="age1" value="10-18" {$elementsArr['age']['value']['10-18']}>
       <label class="form-check-label" for="age1">10-18</label>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="age" id="age2" value="19-30"  {$elementsArr['age']['value']['19-30']}>
+      <input class="form-check-input" type="radio" name="age" id="age2" value="19-30" {$elementsArr['age']['value']['19-30']}>
       <label class="form-check-label" for="age2">19-30</label>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="age" id="age3" value="31-50"  {$elementsArr['age']['value']['31-50']}>
+      <input class="form-check-input" type="radio" name="age" id="age3" value="31-50" {$elementsArr['age']['value']['31-50']}>
       <label class="form-check-label" for="ag3">31-50</label>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="age" id="age4" value="51+"  {$elementsArr['age']['value']['51+']}>
+      <input class="form-check-input" type="radio" name="age" id="age4" value="51+" {$elementsArr['age']['value']['51+']}>
       <label class="form-check-label" for="age4">51+</label>
     </div>
     

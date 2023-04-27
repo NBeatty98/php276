@@ -46,7 +46,7 @@ $elementsArr = [
     "errorMessage" => "<span style='color: red; margin-left: 15px;'>Name cannot be blank and must be a standard name</span>",
     "errorOutput" => "",
     "type" => "text",
-    "value" => "Waldo",
+    "value" => "Nick Beatty",
     "regex" => "name",
   ],
 
@@ -54,7 +54,7 @@ $elementsArr = [
     "errorMessage" => "<span style='color: red; margin-left: 15px;'>Email cannot be blank and must be a valid email</span>",
     "errorOutput" => "",
     "type" => "text",
-    "value" => "test@email.com",
+    "value" => "nbeatty@email.com",
     "regex" => "email"
   ],
 
@@ -62,7 +62,7 @@ $elementsArr = [
     "errorMessage" => "<span style='color: red; margin-left: 15px;'>Password cannot be blank and must be a valid password containing 1 letter, 1 number, 1 special character, and between 5-20 characters in length.</span>",
     "errorOutput" => "",
     "type" => "password",
-    "value" => "password1!",
+    "value" => "password",
     "regex" => "password"
   ],
 
@@ -94,7 +94,7 @@ function addData($post)
   $data = $pdo->selectBinded($sql, $bindings);
 
   if (count($data) > 0) {
-    return getForm("<p>There is already an account with that email</p>", $elementsArr);
+    return getForm("<p>That email already exists</p>", $elementsArr);
   }
 
   $password = password_hash($post['password'], PASSWORD_DEFAULT);
@@ -114,7 +114,7 @@ function addData($post)
     $errorInfo = $pdo->errorInfo();
     return getForm("<p>There was a problem processing your form: " . $errorInfo[2] . "</p>", $elementsArr);
   } else {
-    return getForm("<p>Admin Information Added</p>", $elementsArr);
+    return getForm("<p>Admin has been added</p>", $elementsArr);
   }
 
 }
@@ -133,7 +133,7 @@ function getForm($acknowledgement, $elementsArr)
     <form method="post" action="index.php?page=addAdmin">
    
     <div class="form-group">
-      <label for="name">Name {$elementsArr['name']['errorOutput']}</label>
+      <label for="name">Name (letters only) {$elementsArr['name']['errorOutput']}</label>
       <input type="text" class="form-control" id="name" name="name" value="{$elementsArr['name']['value']}" >
     </div>
     <div class="form-group">

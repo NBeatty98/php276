@@ -8,6 +8,6 @@ CREATE TABLE contacts (
  con_email char(50) NOT NULL,
  con_dob char(50) NOT NULL,
  con_contacts char(100) NULL,
- con_age int NULL,
+ con_age char(255) NULL,
  PRIMARY KEY (con_id)
 ) ENGINE = InnoDB;
